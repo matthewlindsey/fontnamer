@@ -1,53 +1,63 @@
-# fontname.py
+# fontnamer
 
 ## About
+A Python utility that renames OpenType (`.otf`) and TrueType (`.ttf`) fonts using the [fonttools](https://github.com/fonttools/fonttools) library. This forked version of Chris Simpkins' [fontname.py](https://github.com/chrissimpkins/fontname.py) script has been packaged to allow simple installation as a global command line tool using `pipx`.
 
-`fontname.py` is a `.ttf` and `.otf` font renaming script that is developed in Python.  It supports font renaming with the Python 3.6+ interpreter.
+Font renaming script for OpenType tables in CFF (.otf) and OT TrueType (.ttf) fonts
 
-## Dependency
-- [fonttools](https://github.com/fonttools/fonttools) Python library (requires v4.0.0+)
+## Requirements
+* Python 3.6 or later
 
-Install with:
+## Dependencies
+* [fonttools](https://github.com/fonttools/fonttools) Python library (4.0.0 or later)
 
-```
-pip3 install fonttools
-```
 
 ## Usage
 
-The script usage is as follows:
+Once installed globally, `fontnamer` can be used as follows:
 
 ```
-$ python3 fontname.py [NEW FONT FAMILY NAME] [FONT PATH 1] <FONT PATH ...>
+$ fontnamer family_name font_file...
 ```
 
-This script updates the OpenType name table records nameID 1, 4, 6, and 16 with appropriately formatted font names using the font style definition in the font and the new font family name defined by the user as the first command line argument.  The CFF fontName, familyName, and fullName fields are edited in CFF fonts (*.otf).  You can include any number of subsequent font paths on the command line.  The style will be detected in the OpenType tables of the fonts filepath arguments and will be used to create new name strings in the OpenType tables.
+The `fontnamer` command updates the name table records of `.ttf` and `.otf` files with appropriately formatted font names given the user-provided `family_name` and the style definition found within each `font_file`.
 
-**Note**: this re-writes the name tables in the fonts passed as arguments on the command line (i.e. writes files in place) so make copies first if you intend to maintain the fonts with the former naming for any reason (though you can simply re-write with the previous name if you forget...).
+A few things to keep in mind:
+- You can provide multiple `font_file` arguments
+- Use quotes around `family_name` arguments that include spaces
+- This tool edits the font files in place, so make copies beforehand if you you would like to preserve the fonts with their former names. (You can always rewrite them with the previous name if you forget or change your mind.)
+
+### Details
+To apply a new family name to a font file, `fontnamer` updates the following entries in its `name` table: Family Name (name ID 1).
+Full Name (name ID 4), PostScript name (id 6), Typographic Family (id 16). For OpenType fonts with Compact Font Format data, `fonttools` also updates the `FontName`, `FullName`, and `FamilyName` records in the `CFF` table.
+
 
 ### Examples
 
 ```
-$ python3 fontname.py "Hack DEV" Hack-Regular.ttf
+$ fontnamer "Hack DEV" Hack-Regular.ttf
 ```
 
 ![fscw-hack](https://user-images.githubusercontent.com/4249591/32151555-2a456982-bcf4-11e7-8ec8-57f8dbbd40a4.png)
 
 
 ```
-$ python3 fontname.py "Source Code Pro DEV" SourceCodePro-Regular.otf
+$ fontnamer "Source Code Pro DEV" SourceCodePro-Regular.otf
 ```
 
 ![fscw-scp](https://user-images.githubusercontent.com/4249591/32151559-2e58a688-bcf4-11e7-9d39-7c8accdc41a6.png)
 
 
 ```
-$ python3 fontname.py "DejaVu Sans Mono DEV" DejaVuSansMono-Bold.ttf
+$ fontnamer "DejaVu Sans Mono DEV" DejaVuSansMono-Bold.ttf
 ```
 
 ![fscw-djv](https://user-images.githubusercontent.com/4249591/32151564-3414a644-bcf4-11e7-93c3-93bc2bbaebdb.png)
 
 These should all be detected as "different" fonts so that you can install them side-by-side with the pre-modified versions.
+
+## Warnings
+Many fonts have licences prohibiting modifications of any kind, including changes to font family names and other metadata. Please take the time to understand the licenses of any fonts you wish to rename and act accordingly.
 
 ## License
 
