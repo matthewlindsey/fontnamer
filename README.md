@@ -57,7 +57,7 @@ $ fontnamer "DejaVu Sans Mono DEV" DejaVuSansMono-Bold.ttf
 These should all be detected as "different" fonts so that you can install them side-by-side with the pre-modified versions.
 
 ## Warnings
-Many fonts have licences prohibiting modifications of any kind, including changes to font family names and other metadata. Please take the time to understand the licenses of any fonts you wish to rename and act accordingly.
+Many fonts have licenses prohibiting modifications of any kind, including changes to font family names and other metadata. Please take the time to understand the licenses of any fonts you wish to rename and act accordingly.
 
 ## License
 

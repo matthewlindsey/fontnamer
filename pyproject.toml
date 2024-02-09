@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm>=8"]
+requires = ["setuptools>=64", "setuptools_scm>=8", "build>=1"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -15,10 +15,10 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
-dependencies = ["fonttools >= 4.0.0", "setuptools_scm >= 8"]
+dependencies = ["fonttools >= 4", "setuptools_scm >= 8"]
 
 [project.scripts]
-fontnamer = "fontnamer:main"
+fontnamer = "fontnamer.fontnamer:main"
 
 [project.urls]
 "Homepage" = "https://github.com/matthewlindsey/fontnamer/"

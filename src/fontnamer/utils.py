@@ -1,6 +1,7 @@
 import os
 
 def get_version():
+    """Returns package version number"""
     # use auto-generated version file managed by setuptool_scm
     def use_version_file():
         try:

@@ -5,7 +5,7 @@ import sys
 
 from fontTools import ttLib
 
-from utils import get_version, file_exists
+from fontnamer.utils import get_version, file_exists
 
 
 def main():
