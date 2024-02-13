@@ -23,7 +23,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with: 
         fetch-depth: 0
 
@@ -32,9 +33,16 @@ jobs:
       with:
         python-version: '3.x'
     
-    - name: Install package and dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install build
+
+    - name: Build package
+      run: python -m build
+
+    - name: Check package version
+      run: |
         pip install --ignore-installed --dry-run --editable . --report ../report.json
         read name version < <(echo $(jq -r '.install[0].metadata|(.name,.version)' ../report.json))
         echo "name: ${name}"
