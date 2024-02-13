@@ -28,9 +28,6 @@ jobs:
       with: 
         fetch-depth: 0
 
-    - name: Git describe
-      run: git describe --long
-
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -41,17 +38,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install build
 
-    - name: Build package
-      run: python -m build
-
     - name: Check package version
       run: |
         pip install --dry-run --no-deps --editable . --report ../report.json
         read name version < <(echo $(jq -r '.install[0].metadata|(.name,.version)' ../report.json))
         echo "name: ${name}"
         echo "version: ${version}"
-      env:
-        pip_report_json: ${{ runner.temp }}/logs/pip-install-report.json
+
+    - name: Build package
+      run: python -m build
     # REPORT=$(realpath "${GITHUB_WORKSPACE}/../report.json")
     # - name: 
     #   run:
