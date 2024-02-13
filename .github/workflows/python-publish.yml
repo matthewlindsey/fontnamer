@@ -34,8 +34,8 @@ jobs:
         pip install -e .
         echo "Current directory: ${PWD}"
         ls
-        pip install --dry-run --report $pip_report_json --editable .
-        read name version < <(echo $(jq -r '.install[0].metadata|(.name,.version)' $pip_report_json))
+        pip install --dry-run --report ../report.json --editable .
+        read name version < <(echo $(jq -r '.install[0].metadata|(.name,.version)' ../report.json))
         echo "name: ${name}"
         echo "version: ${version}"
       env:
