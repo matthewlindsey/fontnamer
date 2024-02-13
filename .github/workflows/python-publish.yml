@@ -34,8 +34,13 @@ jobs:
         pip install -e .
         echo "Current directory: ${PWD}"
         ls
+        pip install --dry-run --report $pip_report_json --editable .
+        read name version < <(echo $(jq -r '.install[0].metadata|(.name,.version)' $pip_report_json))
+        echo "name: ${name}"
+        echo "version: ${version}"
       env:
-        REPORT: 
+        pip_report_json: ${{ runner.temp }}/logs/pip-install-report.json
+    # REPORT=$(realpath "${GITHUB_WORKSPACE}/../report.json")
     # - name: 
     #   run:
     # - name: Build package
