@@ -28,6 +28,9 @@ jobs:
       with: 
         fetch-depth: 0
 
+    - name: Git describe
+      run: git describe --long
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
